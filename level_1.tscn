@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://mhjt6xlqblav"]
+
+[ext_resource type="PackedScene" uid="uid://dbiero2syd303" path="res://level.tscn" id="1_knmmj"]
+
+[node name="Level1" instance=ExtResource("1_knmmj")]
+
+[node name="CollisionPolygon2D" parent="StaticBody2D" index="0"]
+polygon = PackedVector2Array(626, 2, 1150, 3, 1150, 80, 535, 80, 537, -253, 623, -253)
+
+[node name="TransitionArea" parent="." index="2" node_paths=PackedStringArray("EntryMarker")]
+ExitSide = 1
+NextScene = "level_2"
+EntryMarker = NodePath("../EntryMarker")
+
+[node name="EntryMarker" type="Marker2D" parent="." index="3"]
+position = Vector2(1112, 0)

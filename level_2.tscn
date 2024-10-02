@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmpwtvwv6p6pk"]
+
+[ext_resource type="PackedScene" uid="uid://dbiero2syd303" path="res://level.tscn" id="1_j570p"]
+[ext_resource type="Script" path="res://transition_area.gd" id="2_7dnxy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qi8hk"]
+size = Vector2(128, 20)
+
+[node name="Level2" instance=ExtResource("1_j570p")]
+metadata/_edit_horizontal_guides_ = [-44.0, -1.0]
+
+[node name="CollisionPolygon2D" parent="StaticBody2D" index="0"]
+polygon = PackedVector2Array(729, 0, 392, 1, 394, 71, 790, 74, 788, -192, 726, -191)
+
+[node name="TransitionArea" parent="." index="2" node_paths=PackedStringArray("EntryMarker")]
+position = Vector2(386, -121)
+ExitSide = 3
+NextScene = "level_1"
+EntryMarker = NodePath("../EntryMarker")
+
+[node name="EntryMarker" type="Marker2D" parent="." index="3"]
+position = Vector2(420, 0)
+
+[node name="UpTransitionArea" type="Area2D" parent="." index="4" node_paths=PackedStringArray("EntryMarker") groups=["Transition"]]
+position = Vector2(647, -86)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_7dnxy")
+NextScene = "level_3"
+EntryMarker = NodePath("../UpEntryMarker")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpTransitionArea" index="0"]
+position = Vector2(-54, 0)
+shape = SubResource("RectangleShape2D_qi8hk")
+
+[node name="UpEntryMarker" type="Marker2D" parent="." index="5"]
+position = Vector2(592, -41)
+
+[connection signal="body_entered" from="UpTransitionArea" to="UpTransitionArea" method="_on_body_entered"]

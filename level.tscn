@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbiero2syd303"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_nai4y"]
+[ext_resource type="PackedScene" uid="uid://dkhrw2ulnowsk" path="res://player.tscn" id="2_t33xt"]
+[ext_resource type="Script" path="res://transition_area.gd" id="3_qe8km"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsuqp"]
+size = Vector2(20, 244)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_nai4y")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+
+[node name="Player" parent="." instance=ExtResource("2_t33xt")]
+unique_name_in_owner = true
+position = Vector2(690, -44)
+
+[node name="TransitionArea" type="Area2D" parent="." groups=["Transition"]]
+unique_name_in_owner = true
+position = Vector2(1159, -120)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_qe8km")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea"]
+shape = SubResource("RectangleShape2D_dsuqp")
+
+[connection signal="body_entered" from="TransitionArea" to="TransitionArea" method="_on_body_entered"]
